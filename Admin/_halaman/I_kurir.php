@@ -61,6 +61,10 @@ $judul = $title;
                     <label>No Hp</label>
                     <input type="number" name="nohp" class="form-control" style="width: 100%;" placeholder="Enter Phone Number " required>
                   </div>
+                  <div class="form-group">
+                    <label>No Identitas</label>
+                    <input type="number" name="no_identitas" class="form-control" style="width: 100%;" placeholder="Enter Identity Number " required>
+                  </div>
                   <div class="row">
                     <div class="col-12">
                       <a href="<?= url('kurir') ?>" class="btn btn-secondary ">Cancel</a>
