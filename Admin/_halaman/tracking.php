@@ -49,7 +49,7 @@ include '../database/koneksi.php';
             $no = 1;
             $resi = mysqli_query($koneksi,"SELECT * FROM tbl_resi
                         INNER JOIN tbl_barang ON tbl_resi.id_barang =tbl_barang.id_barang
-                        INNER JOIN tbl_pengirim ON tbl_resi.id_pengirim =tbl_pengirim.id_pengirim");
+                        INNER JOIN tbl_kurir ON tbl_resi.id_pengirim =tbl_kurir.id_kurir");
                         
             while($b = mysqli_fetch_array($resi)){
                 ?>
@@ -58,7 +58,7 @@ include '../database/koneksi.php';
                 <td><?php echo $b['id_resi']; ?></td>
                 <td><?php echo $b['nama']; ?></td>
                 <td><?php echo $b['alamat']; ?></td>
-                <td><?php echo $b['no_tlp']; ?></td>
+                <td><?php echo $b['nohp']; ?></td>
                 <td><?php echo $b['penerima']; ?></td>
                 <td><?php echo $b['alamat_penerima']; ?></td>
                 <td><?php echo $b['nohp']; ?></td>
