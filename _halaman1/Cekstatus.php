@@ -24,12 +24,18 @@
       </form>
       <?php
       //koneksi
-      $koneksi = new mysqli('localhost','root','','skripsi');
-
+      include "./database/koneksi.php";
       if (isset($_POST['Search'])) {
         //variable
         $keyword = $_POST['keyword'];
-        $query = $koneksi->query($koneksi, "SELECT * FROM tbl_resi INNER JOIN tbl_barang ON tbl_resi.id_barang =tbl_barang.id_barang INNER JOIN tbl_kurir ON tbl_resi.id_pengirim =tbl_kurir.id_kurir WHERE id_resi '%$keyword%' OR penerima LIKE '%$keyword%'");
+        $query = mysqli_query($koneksi, "SELECT * FROM tbl_resi
+     INNER JOIN tbl_barang ON tbl_resi.id_barang =tbl_barang.id_barang
+     INNER JOIN tbl_kurir ON tbl_resi.id_pengirim =tbl_kurir.id_kurir
+     WHERE id_resi
+     LIKE '%$keyword%' OR penerima LIKE '%$keyword%'
+      ");
+   
+      
         $row = mysqli_num_rows($query);
         //cek apakah ada satu  
         if ($row == 0) {
@@ -56,7 +62,7 @@
               <th>No Resi</th>
               <th>Pengrim</th>
               <th>Alamat Pengrim</th>
-              <th>No Telphone</th>
+  
               <th>Penerima</th>
               <th>Alamat Penerima</th>
               <th>No Telphone</th>
@@ -70,12 +76,12 @@
             </tr>
 
             <?php
-            foreach ($result as $rows) {
+            foreach ($query as $rows) {
               @$no++;
               $noresi               = $rows['id_resi'];
               $Pengirim             = $rows['nama'];
               $alamatPeng           = $rows['alamat'];
-              $nopeng               = $rows['no_tlp'];
+          
               $Penerima             = $rows['penerima'];
               $alamatPen            = $rows['alamat_penerima'];
               $nopen                = $rows['nohp'];
@@ -100,9 +106,7 @@
               <td class="main2">
                 <font color="rgb(253, 215, 3)"><?php echo $alamatPeng; ?>
               </td>
-              <td class="main2">
-                <font color="rgb(253, 215, 3)"><?php echo $nopeng; ?>
-              </td>
+       
               <td class="main2">
                 <font color="rgb(253, 215, 3)"><?php echo $Penerima; ?>
               </td>
