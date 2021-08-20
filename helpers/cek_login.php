@@ -11,11 +11,16 @@ $password = $_POST['password'];
 
 if (isset($_POST['kurir'])) {
 	$login = mysqli_query($koneksi, "select * from tbl_kurir where username='$username' and password='$password'");
+	$loginResult = mysqli_fetch_assoc($login);
 	$cek = mysqli_num_rows($login);
 	if ($cek > 0) {
-		echo "Login Kurir sukses";
+
+		$_SESSION['username'] = $loginResult['username'];
+		$_SESSION['id_kurir'] = $loginResult['id_kurir'];
+		$_SESSION['level'] = "kurir";
+		header("location:http://localhost/WebSit/admin/");
 	} else {
-		echo "LOGIN KURIR GAGAL";
+		header("location:../_halaman1/login.php?pesan=gagal");
 	}
 } else {
 	// menangkap data yang dikirim dari form login

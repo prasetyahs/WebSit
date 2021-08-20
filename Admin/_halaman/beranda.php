@@ -5,7 +5,7 @@
  <?=content_open()?>
        
         <?php 
-	session_start();
+	// session_start();
  
 	// cek apakah yang mengakses halaman ini sudah login
 	if($_SESSION['level']==""){

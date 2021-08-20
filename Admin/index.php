@@ -1,6 +1,7 @@
 <?php 
  include '_loader.php';
  $setTemplate=true;
+ session_start();
  if(isset($_GET['halaman'])){
     $halaman=$_GET['halaman'];
   }
