@@ -9,8 +9,14 @@ function assets($a=''){
     return base_url($getbase_assets.$a);
 }
 
-function url($a='',$b=''){
+function url($a='',$b='',$c = ''){
+  if($c != ''){
+
+    return base_url($b.'?halaman='.$a.'&id='.$c);
+  }else{
     return base_url($b.'?halaman='.$a);
+
+  }
 }
 
 function templates($a=''){
