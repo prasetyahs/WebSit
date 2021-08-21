@@ -10,7 +10,7 @@
 
    <script type="text/javascript">
 
-   	let latLng=[-6.2292727350343196, 106.92440978212976];
+   	let latLng=[-6.22634555, 106.88842826999377];
    	var map = L.map('mapid').setView(latLng, 17);
 	var LayerKita=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

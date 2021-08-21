@@ -31,8 +31,15 @@
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-
           <ul class="nav nav-treeview">
+            <?php if ($_SESSION['level'] == 'kurir') { ?>
+              <li class="nav-item">
+                <a href="<?= url('Pengiriman') ?>" class="nav-link">
+                  <i class="fa fa-file nav-icon"></i>
+                  <p>Pengiriman</p>
+                </a>
+              </li>
+            <?php } ?>
             <?php if ($_SESSION['level'] == "admin" || $_SESSION['level'] == 'pegawai') { ?>
               <li class="nav-item">
                 <a href="<?= url('Admin') ?>" class="nav-link">
@@ -72,6 +79,12 @@
               <a href="<?= url('status') ?>" class="nav-link">
                 <i class="fas fa-shipping-fast nav-icon"></i>
                 <p>Resi</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= url('laporan') ?>" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <p>Laporan</p>
               </a>
             </li>
 

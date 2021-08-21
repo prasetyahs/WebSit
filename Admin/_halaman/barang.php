@@ -1,6 +1,18 @@
 <?php
     $title="Data Barang";
     $judul=$title;
+    include 'koneksi.php';
+    include 'crud.php';
+
+    $session = $_SESSION['level'] ;
+    if($session == 'kurir'){
+      $id_kurir = $_SESSION['id_kurir'];
+      $data = readDataAllRow($koneksi,"SELECT * FROM tbl_resi 
+                                          JOIN tbl_barang ON tbl_resi.id_barang = tbl_barang.id_barang 
+                                          WHERE id_pengirim = '$id_kurir'");
+    }else{
+      $data = readDataAllRow($koneksi,"select * from tbl_barang");
+    }
     
   ?>
 <section class="content">
@@ -44,10 +56,11 @@
                 </thead>
                 <tbody>
                 <?php 
-                include 'koneksi.php';
+                
                 $no = 1;
-                $data = mysqli_query($koneksi,"select * from tbl_barang");
-                while($d = mysqli_fetch_array($data)){
+                // $data = mysqli_query($koneksi,"select * from tbl_barang");
+                // while($d = mysqli_fetch_array($data)){
+                  foreach($data as $d){
 			          ?>
                 <tr>
                 <td><?php echo $no++; ?></td>

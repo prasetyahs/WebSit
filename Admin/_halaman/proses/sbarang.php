@@ -13,8 +13,8 @@ $tujuan			        = $_POST['tujuan'];
 $penerima			    = $_POST['penerima'];
 $alamat_penerima 		= $_POST['alamat'];
 $nohp 			        = $_POST['nohp'];
-$lat 					= $_POST['lat'];
-$long 					= $_POST['long'];
+$long 					= $_POST['lat'];
+$lat 					= $_POST['long'];
 
 if($lat != null && $long != null){
 	$sql = "INSERT INTO  tbl_barang  VALUES ('$id_barang','$nama_barang','$jenis_barang','$berat','$qty','$jenis_packing','$tujuan','$penerima','$alamat_penerima','$nohp','$lat','$long')";

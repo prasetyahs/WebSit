@@ -34,8 +34,8 @@
      WHERE id_resi
      LIKE '%$keyword%' OR penerima LIKE '%$keyword%'
       ");
-   
-      
+
+
         $row = mysqli_num_rows($query);
         //cek apakah ada satu  
         if ($row == 0) {
@@ -62,7 +62,7 @@
               <th>No Resi</th>
               <th>Pengrim</th>
               <th>Alamat Pengrim</th>
-  
+
               <th>Penerima</th>
               <th>Alamat Penerima</th>
               <th>No Telphone</th>
@@ -71,7 +71,6 @@
               <th>Qty</th>
               <th>Tanggal pengiriman</th>
               <th>status</th>
-              <th>detail</th>
 
             </tr>
 
@@ -81,7 +80,7 @@
               $noresi               = $rows['id_resi'];
               $Pengirim             = $rows['nama'];
               $alamatPeng           = $rows['alamat'];
-          
+
               $Penerima             = $rows['penerima'];
               $alamatPen            = $rows['alamat_penerima'];
               $nopen                = $rows['nohp'];
@@ -106,7 +105,7 @@
               <td class="main2">
                 <font color="rgb(253, 215, 3)"><?php echo $alamatPeng; ?>
               </td>
-       
+
               <td class="main2">
                 <font color="rgb(253, 215, 3)"><?php echo $Penerima; ?>
               </td>
@@ -131,7 +130,6 @@
               <td class="main2">
                 <font color="rgb(253, 215, 3)"><?php echo $status; ?>
               </td>
-              <td class="main2"><a href="detail-data.php?id_karyawan=<?= $noresi['id_resi'] ?>">Detail</a></td>
 
               </tr>
 
@@ -140,11 +138,59 @@
             }
             ?>
           </table>
+          <div id="map" style="height: 400px;"></div>
       <?php
         }
       }
       ?>
-
     </div>
   </div>
 </div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="assets/js/leaflet-routing-machine/examples/Control.Geocoder.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/search.umd.js"></script>
+<script>
+  const map = L.map('map').setView([-6.2292727350343196, 106.92440978212976], 13);
+  L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  var LayerKita = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  });
+
+  map.addLayer(LayerKita);
+  var myIcon = L.icon({
+    iconUrl: '../WebSit/assets/building.png',
+    iconSize: [38, 38],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+  });
+  var myIcon2 = L.icon({
+    iconUrl: '../WebSit/assets/customer.png',
+    iconSize: [38, 38],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+  });
+  L.marker([-6.2292727350343196, 106.92440978212976], {
+    icon: myIcon
+  }).addTo(map);
+  L.marker([-6.22634555, 106.88842826999377],{icon:myIcon2}).addTo(map);
+
+  // const search = new GeoSearch.GeoSearchControl({
+  //   provider: new GeoSearch.OpenStreetMapProvider(),
+  //   updateMap: true,
+  //   style: 'bar',
+  //   popupFormat: function(result) {
+  //     let lat = result.result.x;
+  //     let long = result.result.y;
+  //     document.getElementById('lat').value = lat;
+  //     document.getElementById('long').value = long;
+  //   }
+  // });
+  // map.addControl(search);
+</script>
