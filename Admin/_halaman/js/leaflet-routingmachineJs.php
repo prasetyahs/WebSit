@@ -4,9 +4,9 @@
    crossorigin=""></script>
 
 <script src="assets/js/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
- <script src="assets/js/leaflet-panel-layers-master/src/leaflet-panel-layers.js"></script>
+<script src="assets/js/leaflet-panel-layers-master/src/leaflet-panel-layers.js"></script>
 
-    <script src="assets/js/leaflet-routing-machine/examples/Control.Geocoder.js"></script>
+<script src="assets/js/leaflet-routing-machine/examples/Control.Geocoder.js"></script>
 
    <script type="text/javascript">
 

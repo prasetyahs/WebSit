@@ -53,6 +53,7 @@
 <link rel="stylesheet" href="<?=templates()?>fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="<?=templates()?>css/aos.css">
     <!-- My Font -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
 
  <link rel="preconnect" href="https://fonts.gstatic.com">
  <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
