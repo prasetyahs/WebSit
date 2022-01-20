@@ -1,8 +1,10 @@
 
 <?php
-    $title="Edit Barang";
-    $judul=$title;
-   
+  $title = "Data Barang";
+  $judul = $title;
+  include 'koneksi.php';
+  include 'crud.php';
+  
   ?>
 <!-- Main content -->
 <section class="content">
@@ -21,11 +23,11 @@
              
                 include "koneksi.php";
             
-                $id = $_GET['id_barang'];
+                $id = $_GET['id'];
                 $result = mysqli_query($koneksi, "SELECT * FROM `tbl_barang` WHERE id_barang='$id'");
                  while($data = mysqli_fetch_assoc($result)){
                  ?>
-              <form action="update_rs.php" method="post"  >
+              <form action="_halaman/proses/update_rs.php" method="post"  >
              
               <div class="card-body">
             <div class="row">
@@ -37,11 +39,11 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Nama Barang</label>
-                  <input type="text" class="form-control"  name="namabarang" style="width: 100%;"  value="<?php echo $data['nama_barang'] ?>">
+                  <input type="text" class="form-control"  name="nama_barang" style="width: 100%;"  value="<?php echo $data['nama_barang'] ?>">
                 </div>
                 <div class="form-group">
                   <label>Jenis Barang</label>
-                  <input type="text" class="form-control" name="jenisbarang"  style="width: 100%;"  value="<?php echo $data['jenis_barang'] ?>">
+                  <input type="text" class="form-control" name="jenis_barang"  style="width: 100%;"  value="<?php echo $data['jenis_barang'] ?>">
                 </div>
                 <div class="form-group">
                   <label>Berat</label>
@@ -53,7 +55,7 @@
                 </div>
                 <div class="form-group ">
                                     <label>Jenis Packing</label>
-                                    <select class="form-control" name="jenispacking"  >
+                                    <select class="form-control" name="jenis_packing"  >
                                       <option value="<?php echo $data['jenis_packing'] ?>">--Pilih--</option>
                                       <option value="Palet">Palet</option>
                                       <option value="Box">Box</option>

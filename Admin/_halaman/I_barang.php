@@ -43,14 +43,14 @@ $kodeBarang = $huruf . sprintf("%05s", $urutan);
           <!-- form start -->
           <form action="<?= url('proses/sbarang') ?>" method="post" class="needs-validation">
             <div class="card-body">
-              <?php if(isset($_SESSION['message'])){ ?>
-              <div class="alert alert-<?= $_SESSION['type'] ?>">
-              <?= $_SESSION['message'] ?>
-              </div>
-              <?php unset($_SESSION['type']); ?>
-              <?php unset($_SESSION['message']); ?>
+              <?php if (isset($_SESSION['message'])) { ?>
+                <div class="alert alert-<?= $_SESSION['type'] ?>">
+                  <?= $_SESSION['message'] ?>
+                </div>
+                <?php unset($_SESSION['type']); ?>
+                <?php unset($_SESSION['message']); ?>
               <?php } ?>
-              
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -91,7 +91,7 @@ $kodeBarang = $huruf . sprintf("%05s", $urutan);
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Tujuan</label>
-                    <input type="text" class="form-control" name="tujuan" style="width: 100%;">
+                    <input id="city" type="text" class="form-control" name="tujuan" style="width: 100%;" required>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
@@ -100,7 +100,7 @@ $kodeBarang = $huruf . sprintf("%05s", $urutan);
                   </div>
                   <div class="form-group">
                     <label>Alamat Penerima</label>
-                    <input type="text" class="form-control" name="alamat" style="width: 100%;">
+                    <input type="text" id="addr" class="form-control" name="alamat" style="width: 100%;" required>
                   </div>
                   <div class="form-group">
                     <label>No hanphone</label>
@@ -145,22 +145,54 @@ $kodeBarang = $huruf . sprintf("%05s", $urutan);
 <script>
   const map = L.map('map').setView([-6.2292727350343196, 106.92440978212976], 17);
   L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  var LayerKita=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-	});
-	
-	map.addLayer(LayerKita);
-
-  const search = new GeoSearch.GeoSearchControl({
-    provider: new GeoSearch.OpenStreetMapProvider(),
-    updateMap: true,
-    style : 'bar',
-    popupFormat: function(result) {
-      let lat = result.result.x;
-      let long = result.result.y;
-      document.getElementById('lat').value = lat;
-      document.getElementById('long').value = long;
-    }
+  var LayerKita = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
   });
+
+  map.addLayer(LayerKita);
+  var marker;
+  map.on('click', function(e) {
+    if (marker)
+      map.removeLayer(marker);
+    latlon = e.latlng;
+    $.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latlon['lat'] + "&lon=" + latlon['lng'], function(data) {
+      if(!data.address.road){
+        $("#addr").val("")
+        $("#city").val('')
+        alert("Titik Lokasi tidak valid");
+      }else{
+        resultAddr = data.address.road + " " + data.address.amenity + "," + data.address.city_block + "," + data.address.village + "," + data.address.suburb + "," + data.address.city_district + "," + data.address.city_district + "," + data.address.city + "," + data.address.country + "," + data.address.postcode;
+        $("#addr").val(resultAddr)
+        $("#city").val(data.address.city)
+        document.getElementById('lat').value = latlon['lat'] ;
+        document.getElementById('long').value = latlon['lng'];
+      }
+    });
+    marker = L.marker(e.latlng).addTo(map);
+  });
+
+  const provider = new window.GeoSearch.OpenStreetMapProvider();
+    const search = new GeoSearch.GeoSearchControl({
+      provider: provider,
+      style: 'bar',
+      updateMap: true,
+      autoClose: true,
+
+    });
+  // const search = new GeoSearch.GeoSearchControl({
+  //   provider: new GeoSearch.OpenStreetMapProvider(),
+  //   updateMap: true,
+  //   style: 'bar',
+  //   popupFormat: function(result) {
+  //     let lat = result.result.x;
+  //     let long = result.result.y;
+  //     $.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + "&lon=" + long, function(data) {
+  //       console.log(data);
+  //     });
+  //     // resultAddr = data.address.road + " " + data.address.amenity + "," + data.address.city_block + "," + data.address.village + "," + data.address.suburb + "," + data.address.city_district + "," + data.address.city_district + "," + data.address.city + "," + data.address.country + "," + data.address.postcode;
+  //     document.getElementById('lat').value = lat;
+  //     document.getElementById('long').value = long;
+  //   }
+  // });
   map.addControl(search);
 </script>
